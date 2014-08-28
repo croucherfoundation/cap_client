@@ -8,8 +8,6 @@ class Round
   belongs_to :round_type
   # has_many :applications
 
-  after_save :decache
-
   def self.new_with_defaults(attributes={})
     Round.new({
       
@@ -41,12 +39,6 @@ class Round
 
   def closing_datetime
     DateTime.parse(applications_end) if applications_end?
-  end
-
-  protected
-
-  def decache
-    $cache.flush_all if $cache
   end
 
 end
