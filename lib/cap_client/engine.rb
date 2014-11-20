@@ -1,5 +1,3 @@
-require 'concerns/has_round'
-
 module CapClient
   class Engine < ::Rails::Engine
 
