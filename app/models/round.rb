@@ -13,12 +13,20 @@ class Round
       
     }.merge(attributes))
   end
+  
+  def self.for_selection(round_type=nil)
+    
+  end
 
   def path
     parts = ['rounds']
     parts.push(round_type.slug) if round_type
     parts.push(slug)
     parts.join('/')
+  end
+  
+  def selection_path
+    path + '/selection'
   end
   
   def open?
