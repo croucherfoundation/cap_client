@@ -1,5 +1,5 @@
 class Application
-  include PaginatedHer::Model
+  include Her::JsonApi::Model
 
   use_api CAP
   collection_path "/api/applications"

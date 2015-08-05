@@ -1,5 +1,6 @@
 require 'settings'
-require 'paginated_her'
+require 'her'
+require 'faraday_middleware'
 
 Settings.cap ||= {}
 Settings.cap[:protocol] ||= 'http'
@@ -8,7 +9,9 @@ Settings.cap[:api_port] ||= Settings.cap[:port] || 8006
 
 CAP = Her::API.new
 CAP.setup url: "#{Settings.cap.protocol}://#{Settings.cap.api_host}:#{Settings.cap.api_port}" do |c|
-  c.use Faraday::Request::UrlEncoded
-  c.use PaginatedHer::Middleware::Parser
+  # Request
+  c.use FaradayMiddleware::EncodeJson
+  # Response
+  c.use Her::Middleware::JsonApiParser
   c.use Faraday::Adapter::NetHttp
 end

@@ -1,5 +1,5 @@
 class Round
-  include PaginatedHer::Model
+  include Her::JsonApi::Model
   include HasGrant
 
   use_api CAP
