@@ -19,10 +19,7 @@ class Round
   end
 
   def path
-    parts = ['rounds']
-    parts.push(round_type.slug) if round_type
-    parts.push(slug)
-    parts.join('/')
+    ['rounds',round_type.slug, slug].join('/')
   end
   
   def selection_path
