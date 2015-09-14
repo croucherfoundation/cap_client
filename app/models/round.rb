@@ -6,16 +6,40 @@ class Round
   collection_path "/api/rounds"
 
   belongs_to :round_type
-  # has_many :applications
+  has_many :applications
 
-  def self.new_with_defaults(attributes={})
-    Round.new({
-      
-    }.merge(attributes))
-  end
-  
-  def self.for_selection(round_type=nil)
+  class << self
+
+    def preload
+      @rounds ||= self.all
+    end
+
+    def find(id)
+      preload.find{ |r| r.id == id }
+    end
     
+    def find_list(ids)
+      preload.select{ |r| ids.include?(r.id) }
+    end
+
+    def in_year(year)
+      preload.select{ |r| r.year == year }
+    end
+
+    def for_selection(year=nil)
+      rounds = year ? in_year(year) : preload
+      rounds.map{|r| [r.name, r.id] }
+    end
+    
+    def years_for_selection()
+      rounds.map(&:year).uniq
+    end
+
+    def new_with_defaults(attributes={})
+      Round.new({
+        year: Date.today.year
+      }.merge(attributes))
+    end
   end
 
   def path
