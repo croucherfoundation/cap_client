@@ -11,7 +11,7 @@ class Round
   class << self
 
     def preload
-      @rounds ||= self.all
+      @rounds ||= self.all.fetch
     end
 
     def find(id)
@@ -26,13 +26,17 @@ class Round
       preload.select{ |r| r.year == year }
     end
 
+    def in_year_with_code(year, code)
+      preload.select{ |r| r.year == year.to_s && r.grant_type_code == code }
+    end
+
     def for_selection(year=nil)
       rounds = year ? in_year(year) : preload
       rounds.map{|r| [r.name, r.id] }
     end
     
     def years_for_selection()
-      rounds.map(&:year).uniq
+      preload.map(&:year).uniq
     end
 
     def new_with_defaults(attributes={})
@@ -40,6 +44,7 @@ class Round
         year: Date.today.year
       }.merge(attributes))
     end
+
   end
 
   def path
