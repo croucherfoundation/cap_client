@@ -1,29 +1,32 @@
-- grant ||= @grant
+- applied_for ||= @grant || @award
 
 %fieldset{data: {role: "applicationpicker"}}
-  - if grant.application && round = grant.application.round
+  - if applied_for.application && round = applied_for.application.round
     - year = round.year
     - round_id = round.id
     - applications = Application.for_selection(round_id)
-    - application_id = grant.application_id
+    - application_id = applied_for.application_id
 
   - else
-    - year = grant.year.presence || Date.today.year
-    - if gtc = grant.grant_type_code
-      - round = Round.in_year_with_code(year, gtc).first
+    - year = applied_for.year.presence || Date.today.year
+    - if applied_for.respond_to?(:grant_type_code)
+      - if code = applied_for.grant_type_code
+        - round = Round.in_year_with_code(year, code).first
     - else
       - round = Round.in_year(year).first
+
     - round_id = round.id if round
     - applications = Application.for_selection(round_id)
     - application_id = nil
+
   %p.twocol
     %span.col<
-      = select_tag :year, options_for_select(Round.years_for_selection, year), include_blank: t("placeholders.application.year"), data: {role: "year"}
+      = select_tag :year, options_for_select(Round.years_for_selection, year), include_blank: t("placeholders.year"), data: {role: "year"}
     %span.col<
-      = select_tag :round_id, options_for_select(Round.for_selection(year.to_s), round_id), include_blank: t("placeholders.application.round_id"), data: {role: "round"}
+      = select_tag :round_id, options_for_select(Round.for_selection(year.to_s), round_id), include_blank: t("placeholders.round_id"), data: {role: "round"}
   %p.onecol
     %span.col<
-      = f.select :application_id, options_for_select(applications, application_id), {include_blank: t("placeholders.grant.application_id")}, {data: {role: "application"}}
+      = f.select :application_id, options_for_select(applications, application_id), {include_blank: t("placeholders.application_id")}, {data: {role: "application"}}
   %p.formnote
     Choose a year and round to reduce the final select box to a more manageable size.
     

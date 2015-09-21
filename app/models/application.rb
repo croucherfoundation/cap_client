@@ -27,7 +27,8 @@ class Application
   end
   
   def serial_and_name
-    [serial, name, research_title].map(&:presence).compact.join(' ')
+    serial_number = "##{serial}: " if serial?
+    [serial_number, name, research_title].map(&:presence).compact.join(' ')
   end
   
 end

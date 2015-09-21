@@ -50,11 +50,11 @@ class Round
   def path
     ['rounds',round_type.slug, slug].join('/')
   end
-  
+
   def selection_path
     path + '/selection'
   end
-  
+
   def open?
     applications_end && (closing_date > Time.now) && (!opening_date || opening_date < Time.now)
   end
