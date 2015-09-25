@@ -11,13 +11,13 @@ class Round
   class << self
 
     def preload
-      @rounds ||= self.all.fetch
+      RequestStore.store[:rounds] ||= self.all.fetch
     end
 
     def find(id)
       preload.find{ |r| r.id == id }
     end
-    
+
     def find_list(ids)
       preload.select{ |r| ids.include?(r.id) }
     end
@@ -32,11 +32,11 @@ class Round
 
     def for_selection(year=nil)
       rounds = year ? in_year(year) : preload
-      rounds.map{|r| [r.name, r.id] }
+      rounds.sort_by(&:name).reverse.map{|r| [r.name, r.id] }
     end
-    
+
     def years_for_selection()
-      preload.map(&:year).uniq
+      preload.map(&:year).uniq.sort.reverse
     end
 
     def new_with_defaults(attributes={})
@@ -44,11 +44,10 @@ class Round
         year: Date.today.year
       }.merge(attributes))
     end
-
   end
 
   def path
-    ['rounds',round_type.slug, slug].join('/')
+    ['rounds', round_type.slug, slug].join('/')
   end
 
   def selection_path
