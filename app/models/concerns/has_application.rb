@@ -10,5 +10,9 @@ module HasApplication
   def application?
     application_id && application
   end
-  
+
+  def application=(application)
+    self.application_id = application.id
+  end
+
 end
