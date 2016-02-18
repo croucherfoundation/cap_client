@@ -1,22 +1,25 @@
-- applied_for ||= @grant || @award
+- thing_applied_for ||= @grant || @award
 
 %fieldset{data: {role: "applicationpicker"}}
-  - if applied_for.application && round = applied_for.application.round
+  - if thing_applied_for.application && round = thing_applied_for.application.round
     - year = round.year
     - round_id = round.id
     - applications = Application.for_selection(round_id)
-    - application_id = applied_for.application_id
+    - application_id = thing_applied_for.application_id
 
   - else
-    - year = applied_for.year.presence || Date.today.year
-    - if applied_for.respond_to?(:grant_type_code)
-      - if code = applied_for.grant_type_code
+    - year = thing_applied_for.year.presence || Date.today.year
+    - if thing_applied_for.respond_to?(:grant_type_code)
+      - if code = thing_applied_for.grant_type_code
         - round = Round.in_year_with_code(year, code).first
     - else
       - round = Round.in_year(year).first
 
     - round_id = round.id if round
-    - applications = Application.for_selection(round_id)
+    - if round_id
+      - applications = Application.for_selection(round_id)
+    - else
+      - applications = []
     - application_id = nil
 
   %p.twocol
@@ -27,5 +30,3 @@
   %p.onecol
     %span.col>
       = f.select :application_id, options_for_select(applications, application_id), {include_blank: t("placeholders.application_id")}, {data: {role: "application"}}
-  %p.formnote
-    Choose a year and round to reduce the final select box to a more manageable size.
