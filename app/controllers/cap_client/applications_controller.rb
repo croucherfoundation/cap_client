@@ -8,5 +8,10 @@ module CapClient
       render json: @applications
     end
 
+    def search
+      @applications = Application.by_user_uid(params[:user_uid])
+      render json: @applications
+    end
+
   end
 end
