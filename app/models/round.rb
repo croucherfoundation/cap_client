@@ -1,6 +1,6 @@
 class Round
   include Her::JsonApi::Model
-  include HasGrant
+  # include HasGrant
 
   use_api CAP
   collection_path "/api/rounds"
