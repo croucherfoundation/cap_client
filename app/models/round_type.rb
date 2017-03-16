@@ -6,12 +6,17 @@ class RoundType
   def self.new_with_defaults(attributes={})
     RoundType.new({
       name: "",
-      code: ""
+      code: "",
+      populated: false
     }.merge(attributes))
   end
 
   def self.for_selection
     RoundType.all.sort_by(&:name).map{|rt| [rt.name, rt.id] }
+  end
+
+  def populated?
+    !!populated
   end
 
 end
