@@ -1,0 +1,23 @@
+- round_type ||= nil
+- round_type_id = round_type.id if round_type
+
+%fieldset.round_type_chooser{data: {role: "choose_or_add"}}
+  %div{data: {role: "choose"}}
+    %p.onecol
+      %span.col>
+        = f.label :round_type_id
+        = f.select :round_type_id, RoundType.for_selection, {prompt: t("placeholders.round_type.choose"), selected: round_type_id}, data: {role: 'old_round_type'}
+        %span.note
+          = t :or
+          = link_to t(:add_round_type), '#', data: {role: "showAdd"}
+  %div{data: {role: "add"}}
+    %p.twocol.unequal
+      %span.col.first>
+        = f.label :round_type_slug, class: "required"
+        = f.text_field :round_type_slug, placeholder: t('placeholders.round_type.slug'), required: true
+      %span.col.last>
+        = f.label :round_type_name, class: "required"
+        = f.text_field :round_type_name, placeholder: t('placeholders.round_type.name'), required: true
+      %span.note
+        = t :or
+        = link_to t(:choose_round_type), '#', data: {role: "showChoose"}

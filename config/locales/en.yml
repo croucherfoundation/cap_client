@@ -1,7 +1,5 @@
 en:
-  activerecord:
-    attributes:
-      cap_client:
-        application:
-        round:
-        round_type:
+  helpers:
+    label:
+      application:
+      round_type:

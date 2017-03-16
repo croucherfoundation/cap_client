@@ -47,7 +47,6 @@ jQuery ($) ->
         @setOptions(data, @_application_chooser)
       else
         @_round_id = round_id
-        console.log "fetching round", round_id
         @_application_chooser.addClass('waiting')
         @_applications_request = $.getJSON "#{@_applications_url}/#{round_id}", @receiveApplications
 
@@ -64,5 +63,4 @@ jQuery ($) ->
 
     appendOption: (name, code, chooser) =>
       chooser.append $("<option />").val(code).text(name)
-
 
