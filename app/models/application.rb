@@ -22,7 +22,7 @@ class Application
 
     def upload_scan(id, file_name)
       begin
-        patch "api/applications/#{id}/upload_scan/?file_name=#{file_name}"
+        put "api/applications/#{id}/upload_scan/?file_name=#{file_name}"
       rescue JSON::ParserError
         nil
       end
@@ -30,7 +30,7 @@ class Application
 
     def delete_scan(id)
       begin
-        patch "api/applications/#{id}/delete_scan"
+        put "api/applications/#{id}/delete_scan"
       rescue JSON::ParserError
         nil
       end
