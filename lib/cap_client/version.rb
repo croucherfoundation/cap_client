@@ -1,3 +1,3 @@
 module CapClient
-  VERSION = "0.6"
+  VERSION = "0.12.0"
 end
