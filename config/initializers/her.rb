@@ -3,13 +3,10 @@ require 'faraday_middleware'
 require 'her'
 require 'her/middleware/json_api_parser'
 
-Settings.cap ||= {}
-Settings.cap[:protocol] ||= 'http'
-Settings.cap[:api_host] ||= Settings.cap[:host] || 'localhost'
-Settings.cap[:api_port] ||= Settings.cap[:port] || 8006
+api_url = ENV['APPL_URL'] || "#{Settings.cap.protocol}://#{Settings.cap.api_host}:#{Settings.cap.api_port}"
 
 CAP = Her::API.new
-CAP.setup url: "#{Settings.cap.protocol}://#{Settings.cap.api_host}:#{Settings.cap.api_port}" do |c|
+CAP.setup url: api_url do |c|
   # Request
   c.use FaradayMiddleware::EncodeJson
   # Response
