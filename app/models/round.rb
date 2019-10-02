@@ -30,6 +30,11 @@ class Round
       preload.select{ |r| r.year == year.to_s && r.grant_type_code == code }
     end
 
+    def of_type(round_type_id)
+      round_type_id = round_type_id.id if round_type_id.is_a?(RoundType)
+      preload.sort_by(&:year).reverse.select{ |r| r.round_type_id == round_type_id }
+    end
+
     def for_selection(year=nil)
       rounds = year ? in_year(year) : preload
       rounds.sort_by(&:name).reverse.map{|r| [r.name, r.id] }
@@ -43,6 +48,13 @@ class Round
       Round.new({
         year: Date.today.year
       }.merge(attributes))
+    end
+
+    def recent
+      rounds = ['fss', 'srf', 'cia'].map do |slug|
+        round_type = RoundType.with_slug(slug)
+        round = Round.of_type(round_type.id).first
+      end
     end
   end
 
