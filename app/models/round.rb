@@ -51,10 +51,15 @@ class Round
     end
 
     def recent
-      rounds = ['fss', 'srf', 'cia'].map do |slug|
-        round_type = RoundType.with_slug(slug)
-        round = Round.of_type(round_type.id).first
+      rounds = []
+      ['fss', 'srf', 'cia'].each do |slug|
+        if round_type = RoundType.with_slug(slug).first
+          if round = Round.of_type(round_type.id).first
+            rounds.push round
+          end
+        end
       end
+      rounds
     end
   end
 
