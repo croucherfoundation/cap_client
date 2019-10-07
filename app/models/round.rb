@@ -54,7 +54,7 @@ class Round
       rounds = []
       ['fss', 'srf', 'cia'].each do |slug|
         if round_type = RoundType.with_slug(slug).first
-          if round = Round.of_type(round_type.id).first
+          if round = Round.of_type(round_type.id.to_i).first
             rounds.push round
           end
         end
