@@ -15,15 +15,15 @@ class Round
     end
 
     def find(id)
-      preload.find{ |r| r.id == id }
+      preload.find{ |r| r.id && r.id.to_i == id.to_i }
     end
 
     def find_list(ids)
-      preload.select{ |r| ids.include?(r.id) }
+      preload.select{ |r| r.id && ids.include?(r.id.to_i) }
     end
 
     def in_year(year)
-      preload.select{ |r| r.year == year }
+      preload.select{ |r| r.year == year.to_s }
     end
 
     def in_year_with_code(year, code)
