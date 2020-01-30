@@ -8,7 +8,7 @@ class Application
   class << self
 
     def in_round(round_id)
-      round_id = round_id.id if round_id is_a? Round
+      round_id = round_id.id if round_id.is_a?(Round)
       where(round_id: round_id)
     end
 
