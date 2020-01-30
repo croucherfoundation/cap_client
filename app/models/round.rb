@@ -6,7 +6,6 @@ class Round
   collection_path "/api/rounds"
 
   belongs_to :round_type
-  has_many :applications
 
   class << self
 
@@ -61,6 +60,10 @@ class Round
       end
       rounds
     end
+  end
+
+  def applications
+    Application.in_round(self)
   end
 
   def path
