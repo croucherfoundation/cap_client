@@ -12,6 +12,11 @@ class Application
       where(round_id: round_id)
     end
 
+    def submitted_in_round(round_id)
+      round_id = round_id.id if round_id.is_a?(Round)
+      where(round_id: round_id, submitted: true)
+    end
+
     def by_user_uid(user_uid)
       where(user_uid: user_uid)
     end
