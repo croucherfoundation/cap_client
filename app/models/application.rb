@@ -40,8 +40,16 @@ class Application
       rescue JSON::ParserError
         nil
       end
+    end  
+  end
+
+  def admit!
+    begin
+      put "api/applications/#{id}/admit"
+    rescue JSON::ParserError
+      Rails.logger.error "Admissions fail: response unreadable"
+      false
     end
-  
   end
 
   def serial_and_name
