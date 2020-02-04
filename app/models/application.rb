@@ -47,6 +47,7 @@ class Application
     begin
       put "api/applications/#{id}/admit"
     rescue JSON::ParserError
+      # TODO catch error, notify original user
       Rails.logger.error "Admissions fail: response unreadable"
       false
     end
