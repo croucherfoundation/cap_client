@@ -49,6 +49,10 @@ class Application
     end
   end
 
+  def admitted?
+    award_id?
+  end
+
   def serial_and_name
     serial_number = "##{serial}: " if serial?
     [serial_number, name, research_title].map(&:presence).compact.join(' ')
