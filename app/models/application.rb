@@ -47,6 +47,10 @@ class Application
     end
   end
 
+  def admit!(id)
+    Application.admit(self.id)
+  end
+
   def admitted?
     award_id?
   end
