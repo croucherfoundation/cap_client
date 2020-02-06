@@ -47,7 +47,7 @@ class Application
     end
   end
 
-  def admit!(id)
+  def admit!
     Application.admit(self.id)
   end
 
