@@ -40,11 +40,9 @@ class Application
       rescue JSON::ParserError
         nil
       end
-    end  
-  end
+    end
 
-  def admit!
-    begin
+    def admit(id)
       put "api/applications/#{id}/admit"
     end
   end
