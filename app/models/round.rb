@@ -63,7 +63,7 @@ class Round
   end
 
   def applications
-    Application.in_round(self)
+    Application.submitted_in_round(self)
   end
 
   def path
