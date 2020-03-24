@@ -10,7 +10,7 @@ class Round
   class << self
 
     def preload
-      RequestStore.store[:rounds] ||= self.all.fetch
+      RequestStore.store[:rounds] ||= self.all(show: "all").fetch
     end
 
     def find(id)
