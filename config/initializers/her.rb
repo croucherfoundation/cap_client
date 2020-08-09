@@ -3,7 +3,7 @@ require 'faraday_middleware'
 require 'her'
 require 'her/middleware/json_api_parser'
 
-api_url = ENV['APPL_API_URL'] || "#{Settings.cap.protocol}://#{Settings.cap.api_host}:#{Settings.cap.api_port}"
+api_url = ENV['APPL_API_URL']
 
 CAP = Her::API.new
 CAP.setup url: api_url do |c|

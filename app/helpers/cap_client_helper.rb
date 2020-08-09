@@ -9,7 +9,7 @@ module CapClientHelper
   end
 
   def cap_host
-    ENV['APPL_URL'].presence || "#{Settings.cap.protocol}://#{Settings.cap.host}"
+    ENV['APPL_URL']
   end
 
 end
