@@ -10,7 +10,7 @@ class RoundType
     end
 
     def find(id)
-      preload.find{ |r| r.id == id }
+      preload.find{ |r| r.id && r.id.to_i == id.to_i }
     end
 
     def for_selection
