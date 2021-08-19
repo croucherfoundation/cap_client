@@ -11,6 +11,14 @@ class Application
       where(round_id: round_id)
     end
 
+    def by_institution_code(code)
+      begin
+        applications = get "api/applications/search_by_institution?code=#{code}"
+      rescue
+        nil
+      end
+    end
+
     def by_user_uid(user_uid)
       where(user_uid: user_uid)
     end
@@ -35,7 +43,7 @@ class Application
         nil
       end
     end
-  
+
   end
 
   def serial_and_name
