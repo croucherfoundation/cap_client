@@ -45,6 +45,14 @@ class Application
     def admit(id)
       put "api/applications/#{id}/admit"
     end
+
+    def by_institution_code(code)
+      begin
+        applications = get "api/applications/search_by_institution?code=#{code}"
+      rescue
+        nil
+      end
+    end
   end
 
   def admit!
