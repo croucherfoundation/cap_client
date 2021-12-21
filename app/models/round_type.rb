@@ -1,16 +1,11 @@
-class RoundType
-  include Her::JsonApi::Model
-  use_api CAP
-  collection_path "/api/round_types"
+class RoundType < ActiveResource::Base
+  include FormatApiResponse
+  include CapActiveResourceConfig
 
   class << self
 
     def preload
-      RequestStore.store[:round_types] ||= self.all.fetch
-    end
-
-    def find(id)
-      preload.find{ |r| r.id && r.id.to_i == id.to_i }
+      RequestStore.store[:round_types] ||= self.all
     end
 
     def for_selection

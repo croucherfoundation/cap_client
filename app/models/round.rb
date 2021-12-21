@@ -1,20 +1,24 @@
-class Round
-  include Her::JsonApi::Model
-  # include HasGrant
-
-  use_api CAP
-  collection_path "/api/rounds"
+class Round < ActiveResource::Base
+  include FormatApiResponse
+  include CapActiveResourceConfig
 
   belongs_to :round_type
 
   class << self
 
-    def preload
-      RequestStore.store[:rounds] ||= self.all(show: "all").fetch
+    def where(params = {})
+      begin
+        rounds = find(:all, params: params)
+      rescue => e
+        Rails.logger.info "Rounds Fetch Error: #{e}"
+      end
+
+      meta = FormatApiResponse.meta
+      return rounds, meta
     end
 
-    def find(id)
-      preload.find{ |r| r.id && r.id.to_i == id.to_i }
+    def preload
+      RequestStore.store[:rounds] ||= self.all(show: "all")
     end
 
     def find_list(ids)
@@ -85,7 +89,7 @@ class Round
   def opening_datetime
     DateTime.parse(start) if start?
   end
-  
+
   def closing_date
     Date.parse(applications_end) if applications_end?
   end

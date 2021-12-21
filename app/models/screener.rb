@@ -1,8 +1,6 @@
-class Screener
-  include Her::JsonApi::Model
-
-  use_api CAP
-  collection_path '/api/screeners'
+class Screener < ActiveResource::Base
+  include FormatApiResponse
+  include CapActiveResourceConfig
 
   belongs_to :round
 

@@ -1,8 +1,6 @@
-class Interviewer
-  include Her::JsonApi::Model
-
-  use_api CAP
-  collection_path '/api/interviewers'
+class Interviewer < ActiveResource::Base
+  include FormatApiResponse
+  include CapActiveResourceConfig
 
   belongs_to :round
 

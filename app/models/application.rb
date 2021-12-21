@@ -1,8 +1,7 @@
-class Application
-  include Her::JsonApi::Model
+class Application < ActiveResource::Base
+  include FormatApiResponse
+  include CapActiveResourceConfig
 
-  use_api CAP
-  collection_path "/api/applications"
   belongs_to :round
 
   class << self
@@ -28,7 +27,7 @@ class Application
 
     def upload_scan(id, file_name)
       begin
-        put "api/applications/#{id}/upload_scan/?file_name=#{file_name}"
+        find(id).put(:upload_scan, file_name: file_name)
       rescue JSON::ParserError
         nil
       end
@@ -36,15 +35,20 @@ class Application
 
     def delete_scan(id)
       begin
-        put "api/applications/#{id}/delete_scan"
+        find(id).put(:delete_scan)
       rescue JSON::ParserError
         nil
       end
     end
 
     def admit(id)
-      put "api/applications/#{id}/admit"
+      find(id).put(:admit)
     end
+  end
+
+  def save
+    self.prefix_options[:application] = self.attributes
+    super
   end
 
   def admit!
