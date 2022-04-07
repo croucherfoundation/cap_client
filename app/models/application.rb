@@ -28,7 +28,7 @@ class Application < ActiveResource::Base
     def upload_scan(id, file_name)
       begin
         find(id).put(:upload_scan, file_name: file_name)
-      rescue JSON::ParserError
+      rescue => e
         nil
       end
     end
@@ -36,7 +36,7 @@ class Application < ActiveResource::Base
     def delete_scan(id)
       begin
         find(id).put(:delete_scan)
-      rescue JSON::ParserError
+      rescue => e
         nil
       end
     end
