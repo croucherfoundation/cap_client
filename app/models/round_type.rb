@@ -1,5 +1,5 @@
 class RoundType < ActiveResource::Base
-  include FormatApiResponse
+  include CapFormatApiResponse
   include CapActiveResourceConfig
 
   class << self

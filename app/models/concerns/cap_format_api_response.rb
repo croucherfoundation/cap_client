@@ -1,4 +1,4 @@
-module FormatApiResponse
+module CapFormatApiResponse
   include ActiveResource::Formats::JsonFormat
   attr_accessor :meta
 

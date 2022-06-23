@@ -1,5 +1,5 @@
 class Interviewer < ActiveResource::Base
-  include FormatApiResponse
+  include CapFormatApiResponse
   include CapActiveResourceConfig
 
   belongs_to :round

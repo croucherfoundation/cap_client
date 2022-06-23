@@ -1,5 +1,5 @@
 class Round < ActiveResource::Base
-  include FormatApiResponse
+  include CapFormatApiResponse
   include CapActiveResourceConfig
 
   belongs_to :round_type
@@ -13,7 +13,7 @@ class Round < ActiveResource::Base
         Rails.logger.info "Rounds Fetch Error: #{e}"
       end
 
-      meta = FormatApiResponse.meta
+      meta = CapFormatApiResponse.meta
       return rounds, meta
     end
 

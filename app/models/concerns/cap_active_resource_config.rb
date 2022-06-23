@@ -4,7 +4,7 @@ module CapActiveResourceConfig
   included do
     self.site                   = ENV['APPL_API_URL']
     self.prefix                 = '/api/'
-    self.format                 = FormatApiResponse
+    self.format                 = CapFormatApiResponse
     self.include_format_in_path = false
   end
 end
