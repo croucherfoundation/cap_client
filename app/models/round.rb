@@ -66,6 +66,11 @@ class Round < ActiveResource::Base
     end
   end
 
+  def save
+    self.prefix_options[:round] = self.attributes
+    super
+  end
+
   def applications
     Application.submitted_in_round(self)
   end
