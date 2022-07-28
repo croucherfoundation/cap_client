@@ -14,10 +14,10 @@
     %p.twocol.unequal
       %span.col.first>
         = f.label :round_type_slug, class: "required"
-        = f.text_field :round_type_slug, placeholder: t('placeholders.round_type.slug'), required: true
+        = f.text_field :round_type_slug, placeholder: t('placeholders.round_type.slug')
       %span.col.last>
         = f.label :round_type_name, class: "required"
-        = f.text_field :round_type_name, placeholder: t('placeholders.round_type.name'), required: true
+        = f.text_field :round_type_name, placeholder: t('placeholders.round_type.name')
       %span.note
         = t :or
         = link_to t(:choose_round_type), '#', data: {role: "showChoose"}
