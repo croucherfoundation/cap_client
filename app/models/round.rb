@@ -60,6 +60,14 @@ class Round
       end
       rounds
     end
+
+    def export(round_id, options={})
+      begin
+        post "/api/rounds/#{round_id}/export?user_uid=#{options[:user_uid]}&file_type=#{options[:file_type]}&email=#{options[:email]}"
+      rescue JSON::ParserError
+        nil
+      end
+    end
   end
 
   def applications
@@ -85,7 +93,7 @@ class Round
   def opening_datetime
     DateTime.parse(start) if start?
   end
-  
+
   def closing_date
     Date.parse(applications_end) if applications_end?
   end
