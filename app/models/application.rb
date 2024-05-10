@@ -45,6 +45,22 @@ class Application
     def admit(id)
       put "api/applications/#{id}/admit"
     end
+
+    def image_award(image_info_id)
+      begin
+        get "/api/applications/image_award?image_info_id=#{image_info_id}"
+      rescue JSON::ParserError
+        nil
+      end
+    end
+
+    def image_awards(options={})
+      begin
+        get "/api/applications/image_awards?featured=#{options[:featured]}&size=#{options[:size]}&year=#{options[:year]}&image_info_id=#{options[:image_info_id]}"
+      rescue JSON::ParserError
+        nil
+      end
+    end
   end
 
   def admit!

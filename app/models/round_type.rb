@@ -29,14 +29,6 @@ class RoundType
         populated: false
       }.merge(attributes))
     end
-
-    def image_awards(size: nil, year: nil, image_info_id: nil)
-      begin
-        get "/api/round_types/image_awards?size=#{size}&year=#{year}&image_info_id=#{image_info_id}"
-      rescue JSON::ParserError
-        nil
-      end
-    end
   end
 
   def populated?
