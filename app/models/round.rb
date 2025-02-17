@@ -63,7 +63,8 @@ class Round
 
     def export(round_id, options={})
       begin
-        post "/api/rounds/#{round_id}/export?user_uid=#{options[:user_uid]}&file_type=#{options[:file_type]}&email=#{options[:email]}"
+        response = post "/api/rounds/#{round_id}/export?user_uid=#{options[:user_uid]}&file_type=#{options[:file_type]}&email=#{options[:email]}&upload=#{options[:upload]}"
+        return response.metadata[:download_link]
       rescue JSON::ParserError
         nil
       end
