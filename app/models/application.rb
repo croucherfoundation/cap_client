@@ -63,22 +63,10 @@ class Application
     end
   end
 
-  def self.get_applications(options = {})
-    url = "/api/applications/applicant_lookup"
-
-    query_params = []
-    query_params << "institution_code=#{CGI.escape(options[:institution_code].to_s)}" if options[:institution_code].present?
-    query_params << "show=#{CGI.escape(options[:show].to_s)}" if options[:show].present?
-    query_params << "per_page=#{CGI.escape(options[:per_page].to_s)}" if options[:per_page].present?
-    query_params << "page=#{CGI.escape(options[:page].to_s)}" if options[:page].present?
-
-    url += "?#{query_params.join('&')}" unless query_params.empty?
-
-    begin
-      get url
-    rescue JSON::ParserError
-      nil
-    end
+  def self.get_applications(options={})
+    get "/api/applications/applicant_lookup?#{options.to_param}"
+  rescue JSON::ParserError
+    nil
   end
 
   def admit!
