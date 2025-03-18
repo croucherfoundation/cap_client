@@ -13,6 +13,12 @@ class Round
       RequestStore.store[:rounds] ||= self.all(show: "all").fetch
     end
 
+    def lookup(options={})
+      get "/api/rounds/lookup?#{options.to_param}"
+    rescue
+      nil
+    end
+
     def find(id)
       preload.find{ |r| r.id && r.id.to_i == id.to_i }
     end
