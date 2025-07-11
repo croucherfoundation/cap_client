@@ -1,5 +1,4 @@
-# require 'concerns/has_application'
-# require 'concerns/has_round'
+require_relative "../../app/helpers/cap_client_helper"
 
 module CapClient
   class Engine < ::Rails::Engine
@@ -9,10 +8,10 @@ module CapClient
       g.test_framework :rspec
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
     end
-    
-    initializer :cap_client_helper do
+
+    initializer "cap_client.integration" do
       ActiveSupport.on_load :action_controller do
-        helper CapClientHelper
+        helper ::CapClientHelper
       end
     end
 
