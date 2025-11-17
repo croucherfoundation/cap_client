@@ -69,6 +69,21 @@ class Application
     nil
   end
 
+  # These actions are called from Dataroom to manage institution code changes
+  #
+  def self.update_institution(old_code, new_code)
+    post "/api/applications/update_institution?old_code=#{old_code}&new_code=#{new_code}"
+  rescue JSON::ParserError
+    nil
+  end
+
+  def self.check_institution_usage(institution_code)
+    get "/api/applications/check_institution_usage?institution_code=#{institution_code}"
+  rescue JSON::ParserError
+    nil
+  end
+  # END institution code management actions
+
   def admit!
     Application.admit(self.id)
   end
