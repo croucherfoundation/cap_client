@@ -82,6 +82,21 @@ class Application
   rescue JSON::ParserError
     nil
   end
+
+  def self.capture_institution_lineage(institution_code)
+    get "/api/applications/capture_institution_lineage?institution_code=#{institution_code}"
+  rescue JSON::ParserError
+    nil
+  end
+
+  def self.reverse_institution_lineage(source_code:, survivor_code:, lineage:)
+    post "/api/applications/reverse_institution_lineage",
+         source_code: source_code,
+         survivor_code: survivor_code,
+         lineage: lineage
+  rescue JSON::ParserError
+    nil
+  end
   # END institution code management actions
 
   def admit!
